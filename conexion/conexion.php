@@ -1,5 +1,4 @@
 <?php
-session_start();
 date_default_timezone_set ('America/Bogota'); setlocale(LC_ALL,"es_ES");
  
 $ip=$_SERVER['REMOTE_ADDR']; 

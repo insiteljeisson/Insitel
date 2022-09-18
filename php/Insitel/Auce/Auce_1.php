@@ -31,8 +31,15 @@ if ($externosession1=$id) {
 	<script src="../../../js/insitel/Auce/Auceimg/Auceimg1.js"></script>
 	<title>Ingreso Casos</title>
 </head>
-<body>
-	<header><img class="imgprin" src="../../../img/insitel.jpg"><img class="img" src="../../../img/etb.jpg"></header>
+ <?php
+       $Externobus=(isset($_GET['Externobus'])    ? $_GET['Externobus']    : '');
+         if ($Externobus!=""){ ?>
+         	<body onmousemove="myFunction()">
+         	<?php }else{ ?> 
+            <body>
+            <?php }?> 		
+	<a href="../Busquedaavanzada/busquedaavanzada.php"><input type="submit" name="" type="button" value="Administrador" class='input1'></a>
+	<header><a href="../../../index.html"><img class="imgprin" src="../../../img/insitel.jpg"><img class="img" src="../../../img/etb.jpg"></header></a>
 
 	<nav><h1><b>Ingreso de Datos</b></h1></nav>
 
@@ -42,6 +49,38 @@ if ($externosession1=$id) {
 			
 
 		<div class="div1">
+
+       <?php
+
+       $Externobus=(isset($_GET['Externobus'])    ? $_GET['Externobus']    : '');
+         if ($Externobus!=""){ ?> 
+         <label>Externo</label>
+		<input  name="externo" list="externo1" id="externo"  onclick="myFunction()"  onfocus="this.value='<?php echo $Externobus ?>'" class="btn-toolbar col-12" type="search"  title="busqueda por Externo"  placeholder="Busqueda por Usuarios"  style="width: 100%;float: center;word-break: break-all;" value='<?php echo "$Externobus"; ?>'>
+
+       <datalist  id="externo1" class="col-12"> 
+                   <b></b> 
+			 <?php
+                 $busqueda= "SELECT * FROM datosauce where externo";
+                 $result = mysqli_query($conexion,$busqueda);   
+                 $numero=1;             
+                     while ($valores = mysqli_fetch_array($result)) {
+                            $numero=$numero+1; 
+                            echo '<option value="'.$valores['externo'].'"
+                                ><table class="default">  
+                                     <tr>
+                                     <td> </td>
+                                     <td>'.$valores["externo"].'/</td>
+                                     <td>'.$valores["interno"].'/</td>
+                                     <td>'.$valores["direccion"].'/</td>
+                                     <td>'.$valores["barrio"].'/</td>                                     
+                                     </tr>                                    
+                                     </table></option>';
+                             }
+                             
+             ?>            
+        </datalist>
+        <?php }else{ ?> 
+
 		<?php $hoy=date('Y-m-d');
          $fechaincorrecta=(isset($_GET['fechaincorrecta'])    ? $_GET['fechaincorrecta']    : '');
          if ($fechaincorrecta>$hoy or $fechaincorrecta<>""){ ?>
@@ -113,7 +152,7 @@ if ($externosession1=$id) {
         </datalist>
 
 <?php }?>
-
+<?php }?> 
               
             <!-- busqueda de externo para poner en casilla externo -->
             <script>
@@ -155,15 +194,19 @@ if ($externosession1=$id) {
 
                     <!-- elegir boton de envio-->  
 					<?php 
-					 $cons=(isset($_GET['Consecutivoget'])    ? $_GET['Consecutivoget']    : '');
+					 $Consecutivoget=(isset($_GET['Consecutivoget'])    ? $_GET['Consecutivoget']    : '');
 					  if (isset($_GET['Componenteget'])=="") {	 
 	                 echo '<label>Formulario #</label><input readonly type="" id="consecutivo" name="consecutivo" value="';?><?php echo $consecutivo; echo '">';
 	                ?>	
 
 					<?php }else{
-				       echo '<label>Formulario #</label><input readonly  type="" id="consecutivo" name="consecutivo" value="';?><?php if ($cons==''){}else{ echo $cons;} echo '">';}
+
+				       echo '<label>Formulario #</label><input readonly  type="" id="consecutivo" name="consecutivo" value="';?><?php if ($Consecutivoget==''){}else{ echo $Consecutivoget;} echo '">';}
+				      
+
 				    ?>
-					   
+
+				   
 						
 
 					<?php

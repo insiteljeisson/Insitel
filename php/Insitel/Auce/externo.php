@@ -78,9 +78,9 @@ section{padding: 5px 5px 5px 5px;
     while($row = mysqli_fetch_array($result1)) {
     
    echo" 
-    
+    <button onclick='history.back()'>Volver</button>
     <tr>
-    <form action='Auce_1.php?Externoget=$row[externo]' method='post' enctype='multipart/form-data'><input class='input1' type='submit' value='VOLVER' onclick=this.form.action='Auce_1.php?Externoget=$row[externo]');?'></input><FORM>
+    <!-- <form action='Auce_1.php?Externoget=$row[externo]' method='post' enctype='multipart/form-data'><input class='input1' type='submit' value='VOLVER' onclick=this.form.action='Auce_1.php?Externoget=$row[externo]');?'></input><FORM> -->
       
       <td>$row[0]</td>
       <td>$row[1]</td>

@@ -5,6 +5,10 @@ background-color: silver;
 
 	
 }*/
+body
+{
+height: 100%;
+}
 
 header
 {
@@ -67,9 +71,20 @@ aside
  height: 100px;	
 }
 
+.uno,.dos,.tres ,.cuatro ,.cinco, .seis
+{
+ width: 16.6%;
+ float: left; 
+}
+
+
 
 @media only screen and (max-width: 1300px) {
 
+body
+{
+height: 900%;
+}
 h1
 {
 background-color: orange;
@@ -111,6 +126,14 @@ border-style: solid;
 padding: 10px 80px 10px 80px;
 
 }
+
+.uno,.dos,.tres ,.cuatro ,.cinco, .seis
+{
+ width: 33.3%;
+ float: left;
+ height: 200px; 
+}
+
 
 
 

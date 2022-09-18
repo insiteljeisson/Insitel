@@ -182,11 +182,9 @@ $hoy=date('Y-m-d');
                      echo "<script>alert('campo vacio revise los datos ingresados');window.history.back(-1);</script>";
                      }else
             {echo "<br>vacios";
-            mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_1Creado/".$Idimagen,0777,true);
-            mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_2Cerrado/".$Idimagen1,0777,true);        
+                   
             
-
-                                              
+             include("insertarimagen.php") ;                                 
 $modificar1="UPDATE ingresocasos SET estadoI='$estado',detalle='$detalle',descripcions='$descripcions',fecha='$fecha',hora='$hora' WHERE externoI='$externo' and estadoI='En Proceso'";
 
 $insertar2="INSERT INTO insertimg(Idimagen,consecutivo,externo,name,tmp,size,ruta,creado)VALUES('$Idimagen','$consecutivoR','$externo','$name','$tmp','$size','$ruta','$fechaimg')";
@@ -199,11 +197,9 @@ $insertar3="INSERT INTO insertimg(Idimagen,consecutivo,externo,name,tmp,size,rut
                      { 
                   if (mysqli_query($conexion,$insertar3))
                      {  
-                         $ruta="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_1Creado/".$Idimagen."/".$name;
-                         $ruta1="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_2Cerrado/".$Idimagen1."/".$name1; 
-                         include("insertarimagen.php");                   
+                                        
                          // echo "<script>alert('ingresa a base de datos');</script>";die;    
-                         echo"ingresa a base de datos";                   
+                         echo "ingresa a base de datos";                   
                          // header("Location: Auce_1.php?externo=$externo");
                          echo "<script type='text/javascript'>window.location'Auce_1.php?Externoget=".$externo."'</script>";
                          // echo'<script> window.location.href = "Auce_1.php?Externoget='.$externo.';</script>';
