@@ -1,6 +1,6 @@
 <?php
  include("../../../conexion/conexion.php");   
-
+ $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
  $id=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
  $_SESSION['Externoget']=$id ;
  $id1session= $_SESSION['Externoget']; ;
@@ -38,7 +38,7 @@ if ($resultado->num_rows > 0) {
  
  
  
-  echo "<script>alert('caso $mostrar00 del ext $mostrar0 en proceso existe en base de datos');location.href = 'Auce_1.php?Componenteget=$mostrar&detalladaget=$mostrar1&Externoget=$mostrar0&Consecutivoget=$mostrar00';</script>";
+  echo "<script>alert('caso $mostrar00 del ext $mostrar0 en proceso existe en base de datos');location.href = 'Auce_1.php?iniciopmt=$iniciopmt&Componenteget=$mostrar&detalladaget=$mostrar1&Externoget=$mostrar0&Consecutivoget=$mostrar00';</script>";
 
 
   // header("Location: Auce_1.php?Componenteget=$mostrar&detalladaget=$mostrar1&externoget=$mostrar0");
@@ -55,13 +55,13 @@ if ($resultado->num_rows > 0) {
      echo $id1session; 
   ECHO $resultado1->num_rows;
   echo $id1session;
-  echo "<script>window.location.href = 'Auce_1.php?Externoget=".$id."';</script>";die;
+  echo "<script>window.location.href = 'Auce_1.php?Externoget=".$id."&iniciopmt=".$iniciopmt."';</script>";die;
  
 }else{
  echo $id1session; 
   ECHO $resultado1->num_rows;
   
- echo "<script>window.location.href = 'Auce_1.php?Externoincorrecto=".$id."';</script>";die;
+ echo "<script>window.location.href = 'Auce_1.php?Externoincorrecto=".$id."&iniciopmt=".$iniciopmt."';</script>";die;
 }
   
 

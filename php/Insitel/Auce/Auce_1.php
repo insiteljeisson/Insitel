@@ -29,10 +29,14 @@ if ($externosession1=$id) {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="../../../js/insitel/Auce/Auceimg/Auceimg.js"></script>
 	<script src="../../../js/insitel/Auce/Auceimg/Auceimg1.js"></script>
+	<script src="../../../js/insitel/Auce/Auceimg/vehiculo.js"></script>
+	<script src="../../../js/insitel/Auce/Auceimg/pmt.js"></script>
 	<title>Ingreso Casos</title>
 </head>
  <?php
        $Externobus=(isset($_GET['Externobus'])    ? $_GET['Externobus']    : '');
+       $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
+
          if ($Externobus!=""){ ?>
          	<body onmousemove="myFunction()">
          	<?php }else{ ?> 
@@ -161,7 +165,9 @@ if ($externosession1=$id) {
 			  var x = document.getElementById("externo").value;			  			 						  
 					  document.getElementById("externo2").innerHTML = "Externo "+ x;
 					  document.getElementById("externo").innerHTML = x;
-			  var y = document.getElementById("consecutivo").value;  
+			  var y = document.getElementById("consecutivo").value;
+
+			  var z = document.getElementById("consecutivo").value;  
 			   		  		
                window.location.href = "mostraractual.php?Externoget="+ x +"&consecutivoget="+ y;
 							       }	
@@ -194,6 +200,8 @@ if ($externosession1=$id) {
 
                     <!-- elegir boton de envio-->  
 					<?php 
+
+
 					 $Consecutivoget=(isset($_GET['Consecutivoget'])    ? $_GET['Consecutivoget']    : '');
 					  if (isset($_GET['Componenteget'])=="") {	 
 	                 echo '<label>Formulario #</label><input readonly type="" id="consecutivo" name="consecutivo" value="';?><?php echo $consecutivo; echo '">';
@@ -254,24 +262,44 @@ if ($externosession1=$id) {
 				            <p id="externo3">
 
 				        <?php function agregaoption(){
+				         $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');						 
+						if ($iniciopmt=="") {
+				        echo '<label>Estado</label><select id="estado" name="estado"><option>Creado</option></select>';
+				        }else{	
 						   if (isset($_GET['Componenteget'])=="") {
-							echo '<select id="estado" name="estado"><option>Creado</option></select>';}
+							echo '<label>Estado</label><select id="estado" name="estado"><option>Creado</option></select>';}
 							else{
-					        echo '<select id="estado" name="estado"><option style="display:none">En Proceso</option><option>Cerrado</option></select>';}
+					        echo '<label>Estado</label><select id="estado" name="estado"><option style="display:none">En Proceso</option><option>Cerrado</option></select>';
+					          }
 							}
-
+                           }
 							?> 
+                   </a>
+                     
+                     <?php 
+                     function crearbotones(){
+					 $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
 
-					<?php function crearbotones(){
-						   if (isset($_GET['Componenteget'])=="") {
+					 if (isset($_GET['Componenteget'])=="") {
 						   	$id5=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
-							echo '<input class="input1" type="submit" value="Enviar requerimiento" onclick=this.form.action="Auce_1registrosql.php?=Externoget='.$id5.'"></input>' ;}
-							else{
-					        echo '<input class="input1" type="submit" value="cerrar Casos"></input>' ;}
-							}?>  		    	
+							echo '<input class="input1" type="submit" value="Enviar requerimiento" onclick=this.form.action="Auce_1registrosql.php?Externoget='.$id5.'"></input>' ;
+
+						}else{
+							if ($iniciopmt=="") {							
+							echo '<input class="input1" type="submit" value="Enviar Pmt y parqueo" onclick=this.form.action="Auce_3registrosql.php?iniciopmt=iniciopmt"></input>';
+						    }else{
+					        echo '<input class="input1" type="submit" value="cerrar Casos"></input>' ;
+					         }
+							}
+						   }
+
+                      ?>
 
 
-				        <label>Estado</label>
+							    	
+
+
+				        
 
 
 				        	      <?php  agregaoption();?>
@@ -321,12 +349,33 @@ echo'<section class="barra">';include("busqueda.php");echo'</section>'.'<section
 $busqueda5="SELECT enlacemapa  FROM datosauce WHERE externo=$externosession1";
   $result3=mysqli_query($conexion,$busqueda5);
    $fila5 = mysqli_fetch_row($result3);
-if (isset($_GET['Componenteget'])=="") {echo'<section><h1>Sitio en Maps '.$externosession1.'</h1>'.$fila5[0].'</section><section class="barra">';include("busqueda.php");'"</section>';}else{include("Auce_2.php");}
+
+if (isset($_GET['Componenteget'])==""){
+	echo'<section><h1>Sitio en Maps '.$externosession1.'</h1>'.$fila5[0].'</section><section class="barra">';include("busqueda.php");'"</section>';
+      }
+      else{
+      	// echo'<script> alert("'.$externosession1.$Consecutivoget.'");</script>';
+      	$iniciopmtbus="SELECT * FROM registroiniciopmt WHERE consecutivo='$Consecutivoget' and externo='$externosession1' and componente='pmt'";
+      	
+      	 $resultados=$conexion->query($iniciopmtbus);
+      	 $rowcount=mysqli_num_rows($resultados);
+			if ($resultados->num_rows > 0) {
+             echo "1";}else{echo "0";}
+						  
+
+      	 $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');						 
+			if ($iniciopmt=="" and $resultados->num_rows==0) {
+				include("auce_2pmt.php");
+      		
+      	        }else{
+      	        	// echo'<script> alert("'.$iniciopmt.'");</script>';
+      	        	include("Auce_2.php");
+      	        	 }
+}
 }
 
  ?>
-		
-		 
+ 
 		
 </form>		
 	</aside>
