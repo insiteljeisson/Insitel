@@ -260,10 +260,24 @@ if ($externosession1=$id) {
 			            </p>
 
 				            <p id="externo3">
+				         <?php 
+				          $iniciopmtbus="SELECT * FROM registroiniciopmt WHERE consecutivo='$Consecutivoget' and externo='$externosession1' and componente='pmt'";
+      	
+				      	 $resultados=$conexion->query($iniciopmtbus);
+				      	 $rowcount=mysqli_num_rows($resultados);
+							if ($resultados->num_rows > 0) {
+				             "1";}else{"0";}  
+                             $conteo=$resultados->num_rows;
 
-				        <?php function agregaoption(){
-				         $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');						 
-						if ($iniciopmt=="") {
+
+				          ?>   	
+
+				        <?php
+  
+				         function agregaoption(){
+				         $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
+				         global $conteo;						 
+						if ($iniciopmt=="" and $conteo==0) {
 				        echo '<label>Estado</label><select id="estado" name="estado"><option>Creado</option></select>';
 				        }else{	
 						   if (isset($_GET['Componenteget'])=="") {
@@ -277,15 +291,20 @@ if ($externosession1=$id) {
                    </a>
                      
                      <?php 
+
+                    
+
                      function crearbotones(){
-					 $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
+                     	$iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
+
+						global $conteo;
 
 					 if (isset($_GET['Componenteget'])=="") {
 						   	$id5=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
 							echo '<input class="input1" type="submit" value="Enviar requerimiento" onclick=this.form.action="Auce_1registrosql.php?Externoget='.$id5.'"></input>' ;
 
 						}else{
-							if ($iniciopmt=="") {							
+							if ($iniciopmt=="" and $conteo==0) {							
 							echo '<input class="input1" type="submit" value="Enviar Pmt y parqueo" onclick=this.form.action="Auce_3registrosql.php?iniciopmt=iniciopmt"></input>';
 						    }else{
 					        echo '<input class="input1" type="submit" value="cerrar Casos"></input>' ;
@@ -355,12 +374,7 @@ if (isset($_GET['Componenteget'])==""){
       }
       else{
       	// echo'<script> alert("'.$externosession1.$Consecutivoget.'");</script>';
-      	$iniciopmtbus="SELECT * FROM registroiniciopmt WHERE consecutivo='$Consecutivoget' and externo='$externosession1' and componente='pmt'";
       	
-      	 $resultados=$conexion->query($iniciopmtbus);
-      	 $rowcount=mysqli_num_rows($resultados);
-			if ($resultados->num_rows > 0) {
-             echo "1";}else{echo "0";}
 						  
 
       	 $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');						 
