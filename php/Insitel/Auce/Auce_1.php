@@ -214,24 +214,26 @@ if ($externosession1=$id) {
 
 				    ?>
 
-				   
-						
+				
 
 					<?php
-					function vacio(){
-                     echo "this.value=''"; 
-					}
+
+					// function vacio(){
+     //                 echo "this.value=''"; 
+					// }
 
 					
 					function externoda(){
                      echo $consecutivo; 
 					}
 
-
-
+                  $vacio="this.value=''";	
+                             
 					function agregaform(){
-					   if (isset($_GET['Componenteget'])=="") {							   	
-						echo '<label>Requerimiento</label><select onchange="componentes()"  onfocus="vacio()"id="requerimiento" name="requerimiento" class="select1">
+						
+					   if (isset($_GET['Componenteget'])=="") {
+					   $vacio="this.value=''";						   	
+						echo '<label>Requerimiento</label><select onfocus="'.$vacio.'" id="requerimiento" name="requerimiento" class="select1">
 						<option></option><option>corrosion</option><option>falta aislamiento</option><option>picaporte</option><option>adptador 12v</option><option>cinta led</option><option>ventiladores</option><option>chapa</option><option>terminales</option><option>Tornilleria</option><option>puertas</option><option>estructura</option></select>
 					    <label>Descripcion Requerimiento detallada de la falla</label><input type="" name="descripcionR" class="select1">';}
 						else{
@@ -261,13 +263,16 @@ if ($externosession1=$id) {
 
 				            <p id="externo3">
 				         <?php 
-				          $iniciopmtbus="SELECT * FROM registroiniciopmt WHERE consecutivo='$Consecutivoget' and externo='$externosession1' and componente='pmt'";
+				          error_reporting(0);				         
+				          $iniciopmtbus = "SELECT * FROM registroiniciopmt where consecutivo ='$Consecutivoget'and externo='$externosession1'and componente='pmt'";
       	
 				      	 $resultados=$conexion->query($iniciopmtbus);
+				      	 error_reporting(0);
 				      	 $rowcount=mysqli_num_rows($resultados);
-							if ($resultados->num_rows > 0) {
+				      	 $conteo=$rowcount;				     
+							if ($conteo > 0){ 
 				             "1";}else{"0";}  
-                             $conteo=$resultados->num_rows;
+                             // $conteo=$resultados->num_rows;
 
 
 				          ?>   	
@@ -297,10 +302,10 @@ if ($externosession1=$id) {
                      function crearbotones(){
                      	$iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
 
-						global $conteo;
+					$conteo;
 
 					 if (isset($_GET['Componenteget'])=="") {
-						   	$id5=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
+						   	$id5=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');						   	
 							echo '<input class="input1" type="submit" value="Enviar requerimiento" onclick=this.form.action="Auce_1registrosql.php?Externoget='.$id5.'"></input>' ;
 
 						}else{
@@ -321,7 +326,7 @@ if ($externosession1=$id) {
 				        
 
 
-				        	      <?php  agregaoption();?>
+				      <?php  agregaoption();?>
 				        	     <!--  <option>Creado</option>
 				                  <option>En proceso</option>
 				                  <option>Cerrado</option> -->
@@ -378,7 +383,7 @@ if (isset($_GET['Componenteget'])==""){
 						  
 
       	 $iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');						 
-			if ($iniciopmt=="" and $resultados->num_rows==0) {
+			if ($iniciopmt=="" and $conteo==0) {
 				include("auce_2pmt.php");
       		
       	        }else{
