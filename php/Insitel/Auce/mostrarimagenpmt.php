@@ -5,6 +5,7 @@
             mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_2PMT_inicio/".$Idimagen1,0777,true);          
             $ruta1="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_2PMT_inicio/".$Idimagen1."/".$name1;
 
+
             
               if(!file_exists($ruta)){ 
                                                 

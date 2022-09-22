@@ -1,9 +1,9 @@
 <?php
   // unlink() 
- mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_1Creado/".$Idimagen,0777,true);
-            mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_2Cerrado/".$Idimagen1,0777,true);
-            $ruta="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_1Creado/".$Idimagen."/".$name;
-                         $ruta1="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."_2Cerrado/".$Idimagen1."/".$name1; 
+ mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/3Falla/".$Idimagen,0777,true);
+            mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/4Solucion/".$Idimagen1,0777,true);
+            $ruta="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/3Falla/".$Idimagen."/".$name;
+                         $ruta1="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/4Solucion/".$Idimagen1."/".$name1;  
                           
 
    // foreach ($_FILES['seleccionArchivos1']['tmp_name'] as $key => $tmp_name) {
