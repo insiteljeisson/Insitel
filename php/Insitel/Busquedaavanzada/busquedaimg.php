@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title></title>
 </head>
 <style type="text/css">
  body 
@@ -11,13 +11,13 @@
 height: 100%;
  background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)), url("../../../img/insitel.jpg");
  }     
-header{	
+header{     
  border: #b2b2b2 1px solid;
  width: 100%;
  height: 100px;
  background-color: orange;
        }
-section{	
+section{    
  border: #b2b2b2 1px solid;
  width: 100%;
  height: 100%;
@@ -42,7 +42,7 @@ section{
  img{
   border: #b2b2b2 1px solid;
  width: 90%; 
- height: 330px;	
+ height: 330px;   
  display:block;
 margin:auto;
 
@@ -62,7 +62,7 @@ height: 1px;
  {
 height: 100%;
  }      
- section{	
+ section{   
  border: #b2b2b2 1px solid;
  width: 100%;
  height: 100%;
@@ -95,7 +95,7 @@ height: 100%;
 img{
   border: #b2b2b2 1px solid;
  width: 90%; 
- height: 300px;	
+ height: 300px;   
  display:block;
 margin:auto;
 
@@ -114,39 +114,60 @@ margin:auto;
 </style>
 <?php 
 include("../../../conexion/conexion.php");
-$Externoget	=(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
+$Externoget =(isset($_GET['Externoget'])    ? $_GET['Externoget']    : '');
 $Consecutivoget=(isset($_GET['Consecutivoget'])    ? $_GET['Consecutivoget']    : '');
 $fechaget=(isset($_GET['fechaget'])    ? $_GET['fechaget']    : '');
-	// echo $Externoget;
-	// echo $Consecutivoget;
+      // echo $Externoget;
+      // echo $Consecutivoget;
 echo "<form action='busquedaavanzada.php?Consecutivoget=$Consecutivoget&Externoget=$Externoget&fechaget=$fechaget' method='post' enctype='multipart/form-data'><input class='input1' type='submit' value='VOLVER' onclick=this.form.action='busquedaavanzada.php?Consecutivoget=$Consecutivoget&Externoget=$Externoget&fechaget=$fechaget');?'></input><FORM>";
 
  ?>
 
 <body>
-	<header><div class="divheader"><h1>Busqueda Imagenes</h1></div><div class="divheader1"><h5>Externo</h5><?php echo'<input type="" name="" value="'.$Externoget.'" type="search">';  ?></div><div class="divheader1"><h5>Consecutivo</h5><?php echo'<input type="" name="" value="'.$Consecutivoget.'" type="search">';  ?></div></header>
-	<section>
-		<?php $busquedaimagen="SELECT * FROM insertimg WHERE consecutivo='$Consecutivoget' and externo='$Externoget'";
-			$resultimg=mysqli_query($conexion,$busquedaimagen);
+      <header><div class="divheader"><h1>Busqueda Imagenes</h1></div><div class="divheader1"><h5>Externo</h5><?php echo'<input type="" name="" value="'.$Externoget.'" type="search">';  ?></div><div class="divheader1"><h5>Consecutivo</h5><?php echo'<input type="" name="" value="'.$Consecutivoget.'" type="search">';  ?></div></header>
 
-			 while($row1 = mysqli_fetch_array($resultimg)) {
-		    echo '<div><h5>'.$row1["Idimagen"].'</h5><img src="'.$row1["ruta"].'"></div>';
-	}
+      <section>
+            <?php $busquedaimagen0="SELECT * FROM registroiniciopmt WHERE consecutivo='$Consecutivoget' and externo='$Externoget'";
+                  $registroiniciopmt=mysqli_query($conexion,$busquedaimagen0);
 
-		?>
-		<div><h5>Fin imagenes</h5><img src="../../../img/insitel.jpg"></div></section>
-		<!-- <div><img src="../../../archivos/Externos/2281/2022-09-02/10013_2Cerrado/90022/WIN_20220206_13_39_18_Pro.jpg"></div>
-		<div><img src="../../../img/insitel.jpg"></div></section>
-		<section>
-		<div><img src="../../../img/insitel.jpg"></div>
-		<div><img src="../../../img/insitel.jpg"></div>
-		<div><img src="../../../img/insitel.jpg"></div></section>
-		<section>
-		<div><img src="../../../img/insitel.jpg"></div>
-		<div><img src="../../../img/insitel.jpg"></div>
-		<div><img src="../../../img/insitel.jpg"></div> --></section>
-	
-	
+                   while($row2 = mysqli_fetch_array($registroiniciopmt)) {
+                echo '<div><h5>'.$row2["componente"].' '.$row2["idimagen"].'</h5><img src="'.$row2["ruta"].'"></div>';
+      }
+
+            ?>
+            <div><h5>Fin imagenes PMT</h5><img src="../../../img/insitel.jpg"></div></section>
+            <!-- <div><img src="../../../archivos/Externos/2281/2022-09-02/10013_2Cerrado/90022/WIN_20220206_13_39_18_Pro.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div></section>
+            <section>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div></section>
+            <section>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div> --></section>
+      <section>
+            <?php $busquedaimagen="SELECT * FROM insertimg WHERE consecutivo='$Consecutivoget' and externo='$Externoget'";
+                  $resultimg=mysqli_query($conexion,$busquedaimagen);
+
+                   while($row1 = mysqli_fetch_array($resultimg)) {
+                echo '<div><h5>'.$row1["Idimagen"].'</h5><img src="'.$row1["ruta"].'"></div>';
+      }
+
+            ?>
+            <div><h5>Fin imagenes FALLA Y SOLUCIONES</h5><img src="../../../img/insitel.jpg"></div></section>
+            <!-- <div><img src="../../../archivos/Externos/2281/2022-09-02/10013_2Cerrado/90022/WIN_20220206_13_39_18_Pro.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div></section>
+            <section>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div></section>
+            <section>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div>
+            <div><img src="../../../img/insitel.jpg"></div> --></section>
+      
+      
 
 </body>
 </html>
