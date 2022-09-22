@@ -26,7 +26,8 @@ height: 400px;
 }
 
 td{
-padding: 50px 150px 50px 30px;
+padding: 1px 150px 2px 30px;
+text-align: center;
 }
 section{padding: 5px 5px 5px 100px;}
 
@@ -59,10 +60,21 @@ section{padding: 5px 5px 5px 5px;
 	$exter	=(isset($_GET['exter'])    ? $_GET['exter']    : '');
 	$conse	=(isset($_GET['conse'])    ? $_GET['conse']    : '');
 	echo $exter;
+
+  $buscarestado="SELECT estadoI from ingresocasos where ConsecutivoI=$conse and externoI=$exter";
+  $resultbusqestado=mysqli_query($conexion,$buscarestado);  
+  $fila = mysqli_fetch_row($resultbusqestado);
+  echo $fila[0];
+
+  
 	 
 
-  $busqueda3="SELECT consecutivo,interno,externo,estadoI,requerimiento,descripcionR FROM registrocasos INNER JOIN ingresocasos ON registrocasos.consecutivo=ingresocasos.consecutivoI INNER JOIN datosauce ON registrocasos.externo1=datosauce.externo where externo=$exter and consecutivo=$conse";
-   $result1=mysqli_query($conexion,$busqueda3);
+  
+
+   if ($fila[0]=="En proceso"){  
+   $busqueda3="SELECT consecutivo,interno,externo,estadoI,requerimiento,descripcionR FROM registrocasos INNER JOIN ingresocasos ON registrocasos.consecutivo=ingresocasos.consecutivoI INNER JOIN datosauce ON registrocasos.externo1=datosauce.externo where externo=$exter and consecutivo=$conse";
+   $result1=mysqli_query($conexion,$busqueda3);  
+  
   echo ' <br><table border="1" style="margin: 0 auto;">
     
   <tr>
@@ -101,54 +113,115 @@ section{padding: 5px 5px 5px 5px;
     </table>     
     
    ";
+ }
+ }else{
+  $busqueda3="SELECT * FROM ingresocasos INNER JOIN datosauce ON ingresocasos.externoI=datosauce.externo  where externo=$exter and ingresocasos.consecutivoI=$conse";
+   $result1=mysqli_query($conexion,$busqueda3);
+
+  while($row = mysqli_fetch_array($result1)) {
+      $consecutivo=$row[0];
+      $externo=$row[1];
+      $estado=$row[2];          
+      $componente=$row[3];
+      $descripcionf=$row[4];
+      $detalle=$row[5];
+      $descripcions=$row[6];
+      $fecha=$row[7];
+      $hora=$row[8];
+ 
+
+ }
+ echo '<br><table border="1" style="margin: 0 auto;"> 
+  <tr>
+      <th>consecutivo</th>
+      <td>'.$consecutivo.'</td>      
+   </tr>
+   <tr>
+      <th>externo</th>
+      <td>'.$externo.'</td>     
+   </tr>
+   <tr>
+      <th>estado</th>
+      <td>'.$estado.'</td>      
+   </tr>
+   <tr>
+      <th>componente</th>
+      <td>'.$componente.'</td>      
+   </tr>
+   <tr>
+      <th>descripcionf</th>
+      <td>'.$descripcionf.'</td>      
+   </tr>
+   <tr>
+      <th>detalle</th>
+      <td>'.$detalle.'</td>      
+   </tr>
+   <tr>
+      <th>descripcions</th>
+      <td>'.$descripcions.'</td>      
+   </tr>
+   <tr>
+      <th>fecha conclusión</th>
+      <td>'.$fecha.'</td>      
+   </tr>
+   <tr>
+      <th>hora</th>
+     <td>'.$hora.'</td>      
+   </tr>
+   </table>';
+
+}
+
     
 
-}$busqueda3="SELECT barrio,direccion,coordenadas,enlacemapa,registrocasos.fecha AS fecha1,registrocasos.hora AS hora1 FROM registrocasos INNER JOIN ingresocasos ON registrocasos.consecutivo=ingresocasos.consecutivoI INNER JOIN datosauce ON registrocasos.externo1=datosauce.externo where externo=$exter and consecutivo=$conse";
+$busqueda3="SELECT barrio,direccion,coordenadas,enlacemapa,registrocasos.fecha AS fecha1,registrocasos.hora AS hora1 FROM registrocasos INNER JOIN ingresocasos ON registrocasos.consecutivo=ingresocasos.consecutivoI INNER JOIN datosauce ON registrocasos.externo1=datosauce.externo where externo=$exter and consecutivo=$conse";
    $result1=mysqli_query($conexion,$busqueda3);
-  echo ' <br><table border="1">
-    
-  <tr>
-      <th>barrio</th>
-      <th>direccion</th>
-      <th>coordenadas</th>
-      <th>Fecha apertura caso</th>
-      <th>Hora</th>
-      
-      
-    </tr>';
+
+  
 
     while($row = mysqli_fetch_array($result1)) {
+
+    $barrio=$row[0];
+      $direccion=$row[1];
+      $coordenadas=$row[2];
+      $mapa=$row[3];          
+      $Fecha=$row[4];
+      $Hora=$row[5];
+      
     
-   echo" 
+   echo' <br><table border="1" style="margin: 0 auto;"> 
+  <tr>
+      <th>barrio</th>
+      <td>'.$barrio.'</td>      
+   </tr>
+   <tr>
+      <th>direccion</th>
+      <td>'.$direccion.'</td>     
+   </tr>
+   <tr>
+      <th>coordenadas</th>
+      <td>'.$coordenadas.'</td>      
+   </tr>
+   <tr>
+      <th>Fecha</th>
+      <td>'.$Fecha.'</td>      
+   </tr>
+   <tr>
+      <th>Hora</th>
+      <td>'.$Hora.'</td>      
+   </tr>   
+   </table>
     
-    <tr> 
       
-      <td>$row[0]</td>
-      <td>$row[1]</td>
-      <td><a href='https://www.google.com/search?q=$row[2]' target='_blank'>$row[2]</a></td>          
-      <td>$row[4]</td>
-      <td>$row[5]</td>
       
-      </tr>
-      <tr>
-      <br>
-      
+
+   <section><p><b>Mapa<b></p>'.$mapa.'</section>
       
       
 
      
-    </tr>
-    
-    </table>   
-      
-
-   <section><p><b>Mapa<b></p>$row[3]</section>
-      
-      
-
-     
-    </table>
-   ";
+    ';
+   
     
 
 }
