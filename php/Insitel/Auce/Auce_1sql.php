@@ -179,7 +179,7 @@ $hoy=date('Y-m-d');
            }else
          {echo "<br>estado blanco";
                  if ($fecha=="" or $externo=="" or $estado==""  or $detalle==""  or $descripcions=="" or $descripcionf==""or $archivo=="" or $archivo1==""){
-                     echo "<script>alert('campo vacio revise los datos ingresados');window.history.back(-1);</script>";
+                    echo "<script>alert('campo vacio revise los datos ingresados');window.history.back(-1);</script>";
                      }else
             {echo "<br>vacios";   
              include("insertarimagen.php") ;                                 

@@ -271,7 +271,7 @@ if ($externosession1=$id) {
 				      	 $rowcount=mysqli_num_rows($resultados);
 				      	 $conteo=$rowcount;				     
 							if ($conteo > 0){ 
-				             "1";}else{"0";}  
+				             "1"; $registradapmt="iniciopmt";}else{"0";$registradapmt="";}  
                              // $conteo=$resultados->num_rows;
 
 
@@ -309,6 +309,8 @@ if ($externosession1=$id) {
 							echo '<input class="input1" type="submit" value="Enviar requerimiento" onclick=this.form.action="Auce_1registrosql.php?Externoget='.$id5.'"></input>' ;
 
 						}else{
+							$iniciopmt=(isset($_GET['iniciopmt'])    ? $_GET['iniciopmt']    : '');
+				         global $conteo;
 							if ($iniciopmt=="" and $conteo==0) {							
 							echo '<input class="input1" type="submit" value="Enviar Pmt y parqueo" onclick=this.form.action="Auce_3registrosql.php?iniciopmt=iniciopmt"></input>';
 						    }else{

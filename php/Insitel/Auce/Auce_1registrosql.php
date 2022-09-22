@@ -77,7 +77,8 @@ if ($resultados->num_rows > 0) {
       if($fecha>$hoy) 
       {
         echo "<script>alert('la fecha es incorrecta $fecha esta en el futuro');window.history.back(-1);</script>";die;
-      }else{echo "fecha";
+      }else{
+        echo "fecha";
              echo "<script>alert('la fecha es correcta $fecha esta en el actual o pasado');</script>";
              if ($estado=="" or $estado=="En Proceso") {
                   echo "<script>alert('el campo estado esta vacio');window.history.back(-1);</script>";
@@ -93,12 +94,12 @@ if ($resultados->num_rows > 0) {
                            if (mysqli_query($conexion,$insertar2))
                              {     
                                                  
-                             echo "<script>alert('ingresa a base de datos');</script>";
+                             echo "<script>alert('ingresa a base de datos se crea caso con exito $consecutivo);</script>";
                              echo "ingresa a base de datos"; 
                               
                                  // header("Location: Auce_1.php?externo=$externo");
                              // echo "<script>window.location'Auce_1.php?Externoget=".''. "'</script>";
-                             echo "<script> window.location.href = 'Auce_1.php?Externoget=".''."';</script>";
+                             echo "<script> window.location.href = 'Auce_1.php?Externoget=$externo';</script>";
                              }else{
                                  echo "<script>alert('error en base de datos');</script>";
                              }}

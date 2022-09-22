@@ -57,6 +57,21 @@
     $resulta1 = mysqli_query($conexion,$primero1);
 
 
+    $encontrarext="SELECT * FROM datosauce WHERE externo='$externo'";
+$resultado=$conexion->query($encontrarext);
+if ($resultado->num_rows > 0) {
+
+  echo "<br>hay datos<br> ";
+ECHO $resultado->num_rows."<br>";
+ 
+  // code...
+}else{
+  ECHO $resultado->num_rows;
+echo "<script>alert('Auce no existe en la base de datos');window.history.back(-1);</script>";
+die;
+}
+
+
 // $encontrarext1="SELECT * FROM ingresocasos WHERE externoI='$externo' and estadoI='En Proceso'";
 // $resultados=$conexion->query($encontrarext1);
 // if ($resultados->num_rows > 0) {
@@ -142,8 +157,8 @@ $result=mysqli_query($conexion,$busqueda1);
                              {
                               echo "<script>alert('ingresa a base de datos');</script>";
                               echo "ingresa a base de datos"; 
-                              echo "<script> window.location.href = 'mostraractual.php?iniciopmt=$iniciopmt&Externoget=".$externo."';</script>";
-
+                              // echo "<script> window.location.href = 'mostraractual.php?iniciopmt=$iniciopmt&Externoget=$externo';</script>";
+                                echo "<script> window.location.href = 'Auce_1.php';</script>";
                               }else{
                                 echo "<script>alert('error en base de datos1');</script>";die;
                               }}
@@ -156,19 +171,7 @@ $result=mysqli_query($conexion,$busqueda1);
        
         
 
-$encontrarext="SELECT * FROM datosauce WHERE externo='$externo'";
-$resultado=$conexion->query($encontrarext);
-if ($resultado->num_rows > 0) {
 
-  echo "<br>hay datos<br> ";
-ECHO $resultado->num_rows."<br>";
- 
-  // code...
-}else{
-  ECHO $resultado->num_rows;
-echo "<script>alert('Auce no existe en la base de datos');window.history.back(-1);</script>";
-die;
-}
 
 
 
