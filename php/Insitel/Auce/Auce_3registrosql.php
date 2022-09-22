@@ -56,19 +56,6 @@
     $primero1 ="SELECT * FROM registroiniciopmt ORDER BY idimagen asc";
     $resulta1 = mysqli_query($conexion,$primero1);
 
-    $encontrarext="SELECT * FROM datosauce WHERE externo='$externo'";
-$resultado=$conexion->query($encontrarext);
-if ($resultado->num_rows > 0) {
-
-  echo "<br>hay datos<br> ";
-ECHO $resultado->num_rows."<br>";
- 
-  // code...
-}else{
-  ECHO $resultado->num_rows;
-echo "<script>alert('Auce no existe en la base de datos');window.history.back(-1);</script>";
-die;
-}
 
 // $encontrarext1="SELECT * FROM ingresocasos WHERE externoI='$externo' and estadoI='En Proceso'";
 // $resultados=$conexion->query($encontrarext1);
@@ -89,6 +76,23 @@ die;
 //   echo $estado."/<pre>";
 //   echo "<script>alert('caso $externo en proceso, no esta en base de datos ');</script>";
 
+    $busqueda1="SELECT * FROM ingresocasos WHERE externoI='$externo'";
+$result=mysqli_query($conexion,$busqueda1);
+    while($row = mysqli_fetch_array($result)) {
+
+            /*Imprimir campo por indice*/
+                   
+        if ($externo==$row['externoI']) {
+            echo "<br>".$row['consecutivoI'];$consecutivo1=$row['consecutivoI'];            
+            echo "<br>".$row['estadoI'];$estado1=$row['estadoI'];
+            echo "<br>".$row['externoI'];$externo1=$row['externoI'];
+            
+            break;
+        }
+        }
+
+
+
 
   $archivovehiculo = $_FILES['seleccionArchivosvehiculo']['name'];     
             if (isset($archivovehiculo) && $archivovehiculo != "") {    
@@ -106,61 +110,29 @@ die;
                   $size1=$_FILES['seleccionArchivospmt']['size'];}
 
 
-    mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_1Vehiculo/".$Idimagen,0777,true);
-      $ruta="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_1Vehiculo/".$Idimagen."/".$name;
-
-
-            mkdir("../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_2PMT_inicio/".$Idimagen1,0777,true);          
-            $ruta1="../../../img/archivos/Externos/".$externo."/".$fecha."/".$consecutivo."/_2PMT_inicio/".$Idimagen1."/".$name1; 
+    
                           
 
    // foreach ($_FILES['seleccionArchivos1']['tmp_name'] as $key => $tmp_name) {
    //        // code... 
    
-              if(!file_exists($ruta)){ 
-                                                
-                    move_uploaded_file($tmp ,$ruta);
-                      // echo "<script>alert('archivo 1 agregado correctamente');</script>";
-                        // $archivo ="";
-
-                        }else{          
-                        
-                        echo "<script>alert('ya existe el archivo seleccionado intente con otro');window.history.back(-1);</script>";
-                          // $archivo ="";
-                          die;
-                            }
-                          
-
-             
-      
-              if(!file_exists($ruta1)){ 
-                                                
-                    move_uploaded_file($tmp1 ,$ruta1);
-                      // echo "<script>alert('archivo 2 agregado correctamente');window.history.back(-1);</script>";
-                        // $archivo1 ="";
-                        
-                        }else{          
-                        
-                         echo "<script>alert('ya existe el archivo seleccionado intente con otro');window.history.back(-1);</script>";
-                          // $archivo1 ="";
-                          die;
-                            }               
-
-
-
   
   $hoy=date('Y-m-d');      
       if($fecha>$hoy) 
       {
         echo "<script>alert('la fecha es incorrecta $fecha esta en el futuro');window.history.back(-1);</script>";die;
-      }else{echo "fecha";
+      }else
+      {echo "fecha";
              echo "<script>alert('la fecha es correcta $fecha esta en el actual o pasado');</script>";
              if ($estado=="" or $estado=="En Proceso") {
                   echo "<script>alert('el campo estado esta vacio');window.history.back(-1);</script>";
-           }else{echo "<br>estado blanco";
+           }else{
+            echo "<br>estado blanco";
                  if ($Vehiculo=="" or $Placa=="" or $PMT=="" or $DPMT=="" or $archivovehiculo==""  or $archivopmt==""){
                      echo "<script>alert('campo vacio revise los datos ingresados');window.history.back(-1);</script>";
-                     }else{echo "<br>vacios";
+                     }
+                     else{echo "<br>vacios";
+                     include("mostrarimagenpmt.php") ;
                        $insertar1="INSERT INTO registroiniciopmt(idimagen,consecutivo,externo,componente,detalle,name,tmp,size,ruta,fecha,hora)VALUES('$Idimagen','$consecutivo','$externo','$Vehiculo','$Placa','$name','$tmp','$size','$ruta','$fecha','$hora')";
                        $insertar2="INSERT INTO registroiniciopmt(idimagen,consecutivo,externo,componente,detalle,name,tmp,size,ruta,fecha,hora)VALUES('$Idimagen1','$consecutivo','$externo','$PMT','$DPMT','$name1','$tmp1','$size1','$ruta1','$fecha','$hora')";
                                           
@@ -172,18 +144,31 @@ die;
                               echo "ingresa a base de datos"; 
                               echo "<script> window.location.href = 'mostraractual.php?iniciopmt=$iniciopmt&Externoget=".$externo."';</script>";
 
-                              }else{echo "<script>alert('error en base de datos1');</script>";}                                                   
-                            
-                             }
+                              }else{
+                                echo "<script>alert('error en base de datos1');</script>";die;
+                              }}
 
                              
-                         }
+             }
 
            }
          }
        
         
 
+$encontrarext="SELECT * FROM datosauce WHERE externo='$externo'";
+$resultado=$conexion->query($encontrarext);
+if ($resultado->num_rows > 0) {
+
+  echo "<br>hay datos<br> ";
+ECHO $resultado->num_rows."<br>";
+ 
+  // code...
+}else{
+  ECHO $resultado->num_rows;
+echo "<script>alert('Auce no existe en la base de datos');window.history.back(-1);</script>";
+die;
+}
 
 
 

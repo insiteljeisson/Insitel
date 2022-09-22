@@ -181,9 +181,7 @@ $hoy=date('Y-m-d');
                  if ($fecha=="" or $externo=="" or $estado==""  or $detalle==""  or $descripcions=="" or $descripcionf==""or $archivo=="" or $archivo1==""){
                      echo "<script>alert('campo vacio revise los datos ingresados');window.history.back(-1);</script>";
                      }else
-            {echo "<br>vacios";
-                   
-            
+            {echo "<br>vacios";   
              include("insertarimagen.php") ;                                 
 $modificar1="UPDATE ingresocasos SET estadoI='$estado',detalle='$detalle',descripcions='$descripcions',fecha='$fecha',hora='$hora' WHERE externoI='$externo' and estadoI='En Proceso'";
 
